@@ -4,8 +4,8 @@ author: "Johnson ODEJIDE"
 date: "2023-01-18"
 output: 
   word_document:
-  toc: true
-  toc_depth: 2
+    toc: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
