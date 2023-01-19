@@ -1,0 +1,103 @@
+---
+title: "Lab1"
+author: "Johnson ODEJIDE"
+date: "2023-01-18"
+output: 
+  word_document:
+  toc: true
+  toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, message=FALSE}
+library(lubridate)
+library(tidyverse)
+```
+
+## Question 1
+
+Use and show R code to extract the month from the following datetime designation;
+
+`datetime2 <- ymd_hms("2021-11-13 10:05:31")`
+`datetime2`
+
+```{r}
+datetime2 <- ymd_hms("2021-11-13 10:05:31")
+datetime2
+
+month(datetime2)
+```
+
+## Question 2
+
+Use and show R code to extract the day of the week from the following datetime designation;
+`datetime2 <- ymd_hms("2021-11-13 10:05:31")`
+`datetime2`
+
+```{r}
+datetime2 <- ymd_hms("2021-11-13 10:05:31")
+datetime2
+
+wday(datetime2)
+```
+
+## Question 3
+
+Use and show R code to change the month to 8, and the hour to 5 for the following datetime designation
+`datetime2 <- ymd_hms("2021-11-13 10:05:31")`
+`datetime2`
+
+```{r}
+datetime2 <- ymd_hms("2021-11-13 10:05:31")
+datetime2
+
+update(datetime2, month = 8, hour = 5)
+datetime2
+```
+
+## Question 4
+
+Use and show R code to change 6 hours to seconds. 
+
+```{r}
+dhours(6)
+```
+
+## Question 5
+
+Use and show R code to change 4 days to seconds.
+
+```{r}
+ddays(4)
+```
+
+## Question 6
+
+Use and show R code to add 7 years to 30 days.
+
+```{r}
+dyears(7) + ddays(30)
+```
+
+## Question 7
+
+Use and show R code to determine how many weeks there are from today's date to a year from now.
+
+```{r}
+next_year <- today() + years(1)
+
+(today() %--% next_year)/weeks(1)
+```
+
+## Question 8
+
+Use and show R code to determine how many days there are between today's date and June 28, 2022.
+
+```{r}
+jun_28_day <- ymd("2022-06-28")
+
+(today() %--% jun_28_day)/days(1)
+```
