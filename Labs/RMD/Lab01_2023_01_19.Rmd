@@ -2,9 +2,13 @@
 title: "Lab1"
 author: "Johnson ODEJIDE"
 date: "2023-01-18"
-output: 
+output:
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
   word_document:
-    toc: true
+    toc: yes
     toc_depth: 2
 ---
 
@@ -52,10 +56,10 @@ Use and show R code to change the month to 8, and the hour to 5 for the followin
 
 ```{r}
 datetime2 <- ymd_hms("2021-11-13 10:05:31")
-datetime2
+# datetime2
 
 update(datetime2, month = 8, hour = 5)
-datetime2
+# datetime2
 ```
 
 ## Question 4
@@ -80,6 +84,8 @@ Use and show R code to add 7 years to 30 days.
 
 ```{r}
 dyears(7) + ddays(30)
+
+years(7) + days(30)
 ```
 
 ## Question 7
@@ -99,5 +105,5 @@ Use and show R code to determine how many days there are between today's date an
 ```{r}
 jun_28_day <- ymd("2022-06-28")
 
-(today() %--% jun_28_day)/days(1)
+(jun_28_day %--% today())%/%days(1)
 ```

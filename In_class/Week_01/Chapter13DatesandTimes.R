@@ -8,7 +8,6 @@ library(nycflights13)
 library(lubridate)  # new package
 library(dplyr)
 
-
 # Determine the accurate Date using R
 today()
 
