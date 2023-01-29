@@ -74,7 +74,6 @@ volume_cylinder <- function(r, h) {
 
 volume_cylinder(4, 6)
 
-
 # Example 4
 
 # function to print x raised to the power y
