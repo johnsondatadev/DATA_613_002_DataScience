@@ -1,0 +1,102 @@
+---
+title: "Lab 3"
+author: "Johnson ODEJIDE"
+date: "2023-02-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+## 1
+
+`V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")` is atomic because the vector contains only one type of data, that is, a character string. Atomic vectors are the ones that use the combine function.
+
+
+## 2
+```{r}
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+V[3]
+```
+
+
+## 3
+```{r}
+V[c(1, 3, 5)]
+```
+
+
+## 4
+```{r}
+V[-1]
+
+V[c(2:5)]
+```
+
+
+## 5
+
+The vector is a list because it consists of different types of objects It consists of a character string but it also consist of a list, as well as integer.
+
+The vector consist of ***an atomic vector***, ***character string***, ***double***, ***list***
+
+
+## 6
+```{r}
+K <- list( x = 3:7, "never", 43, y = list(10,20,30))
+length(K)
+```
+
+
+
+## 7
+```{r}
+K[4]
+```
+
+
+
+## 8
+```{r}
+K[]
+```
+
+## 9a
+```{r}
+tribble( ~x,    ~y,    ~w,    ~z,
+         210,   300,   220,   180,
+         102,   100,   119,   187,
+         176,   175,   188,   173,
+         87,    95,   91,     94,
+         202,   210,  234,    218,
+         110,   122,  131,    128,
+) -> dt
+dt
+
+map_dbl(dt, mean)
+```
+
+
+## 9b
+```{r}
+map_dbl(dt, sd)
+```
+
+
+## 9c
+```{r}
+# dt %>% 
+#   sqrt(.)
+dt %>% 
+  map(sqrt)
+```
+
+
+## 9d
+```{r}
+dt %>% 
+  summary()
+```
