@@ -6,7 +6,7 @@ library(tidyverse)
 # 2
 V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
 V[3]
-
+typeof(3)
 # 3
 V[c(1, 3, 5)]
 
@@ -28,3 +28,31 @@ K[4]
 
 
 # 8
+K[]
+
+
+# 9a
+tribble( ~x,    ~y,    ~w,    ~z,
+         210,   300,   220,   180,
+         102,   100,   119,   187,
+         176,   175,   188,   173,
+         87,    95,   91,     94,
+         202,   210,  234,    218,
+         110,   122,  131,    128,
+) -> dt
+dt
+
+map_dbl(dt, mean)
+
+# 9b
+map_dbl(dt, sd)
+
+
+# 9c
+dt %>% 
+  sqrt(.)
+
+
+# 9d
+dt %>% 
+  summary()
