@@ -1,0 +1,138 @@
+---
+title: "Homework Assignment 3"
+author: "Johnson ODEJIDE"
+date: "2023-02-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+## 1
+
+Two methods of R coding to extract the first element and the last element.
+
+```{r}
+Vector1 <- (c( 10, 19, 121, 83, 63, 7, 77, 61, 51, 97, 123, 41))
+
+Vector1[c(1, 12)]
+Vector1[-c(2:11)]
+```
+
+## 2
+
+Two methods of R coding to extract all of the elements that are less than 60.
+
+```{r}
+Vector1[Vector1 < 60]
+Vector1[!Vector1 >= 60]
+```
+
+## 3
+
+Two methods of R coding to extract all numbers that are not divisible by 2 or 3.
+
+```{r}
+Vector1[!Vector1 %% 2 == 0 & !Vector1 %% 3 == 0]
+Vector1[Vector1 %% 2 != 0 & Vector1 %% 3 != 0]
+```
+
+
+## 4
+
+Two R coding methods to confirm that `Vector1` does not have missing values
+
+```{r}
+Vector1[is.na(Vector1)]
+is.na(Vector1)
+```
+
+
+## 5
+
+R coding to confirm that "`pear`" is a character element in the list.
+
+```{r}
+myList <-  list(TRUE, 12.35, "pear", 48, c = 3:8, list(23, "team"))
+myList 
+
+is.character(myList[[3]])
+```
+
+
+## 6
+
+R coding to extract the first three elements of the list.
+
+```{r}
+myList[1:3]
+```
+
+## 7 
+
+Use the **$** _operator_ to extract the element “`pear`” from your list.
+
+```{r}
+# Recreate the list to assign a variable to "pear"
+myListNew <-  list(TRUE, 12.35, p = "pear", 48, c = 3:8, list(23, "team"))
+myListNew$p
+```
+
+
+## 8
+
+R code to write a function to solve the following quadratic equations by using the quadratic formula.
+
+`a)  x^2 - 3x - 28 = 0`
+
+`b)  x^2 + x  - 30 = 0`
+
+`c) 3x^2 + 14x + 8 = 0`
+
+`d) 2x^2 + 11x = 6`
+
+
+```{r}
+
+solve_quadratic <- function(a, b, c){
+  x1 = (-b + sqrt(b^2 - (4*a*c))) / (2*a)
+  x2 = (-b - sqrt(b^2 - (4*a*c))) / (2*a)
+  
+  print(paste("The solution of the quadratic equation when a = ", a, ", b = ", b, ", and c = ", c, " are ", round(x1, digits = 2), " and ", round(x2, digits = 2)))
+}
+
+### Solution for x^2 - 3x - 28 = 0
+solve_quadratic(1, -3, -28)
+
+### Solution for x^2 + x  - 30 = 0                                      
+solve_quadratic(1, 1, -30)
+
+### Solution for 3x^2+ 14x + 8 = 0
+solve_quadratic(3, 14, 8)
+
+### Solution 2x^2 + 11x = 6
+solve_quadratic(2, 11, -6)
+```
+
+## 9
+
+R code that will produce the Tibble (an Augmented Vector).
+**Do not simply type or copy and paste. You must show and use R coding that will output the tibble.**
+
+```{r}
+tib_augvector <- tibble::tibble(x = 1:10, y = 10:1, z = seq(from = 5, to = 0.5, by = -0.5))
+tib_augvector
+```
+
+
+## 10
+
+map function coding to find the Interquartile Range for each column of the tibble from number 9
+
+```{r}
+round(map_dbl(tib_augvector, IQR), digits = 2)
+```
+

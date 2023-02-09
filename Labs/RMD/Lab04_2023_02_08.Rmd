@@ -1,0 +1,74 @@
+---
+title: "Lab 4"
+author: "Johnson ODEJIDE"
+date: "2023-02-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+## 1
+
+R code (a map function) that iteratively to find the square of the sums across the vectors.
+
+```{r}
+x <- list(2, 4, 5, 9, 1)
+y <- list(8, 7, 2, 8, 3)
+z <- list(1, 8, 5, 4, 2)
+
+pmap_dbl(list(x,y,z), function(first, second, third) (first + second + third)^2)
+```
+
+## 2
+
+R code that will output a statement that is descriptive for all rows of the data table. The first row is given below.  Your code should produce the other specific statements. `John who is Male, has a salary that is 65000 dollars per year.`
+
+```{r}
+tribble( ~Student,  ~Gender,    ~Salary,
+         "John",   "Male",       65000,
+         "Alice",  "Female",    73000,
+         "Juan",   "Male",       66000,
+         "Beth",  "Female",    71500,
+         "Denise", "Female",  82000
+) -> table
+
+table
+
+table %>% 
+  pmap_chr(~ str_glue("{..1} is {..2}, has a salary that is {..3} dollars per year."))
+```
+
+## 3
+
+A 5 by 5 matrix that whose matrix elements are sums of the corresponding columns and rows.
+
+```{r}
+myMatrix <- matrix(nrow = 5, ncol = 5)
+
+for(i in 1:nrow(myMatrix)){
+  for(j in 1:ncol(myMatrix)){
+    myMatrix[i, j] = i + j
+  }
+}
+myMatrix
+```
+
+
+## 4
+
+Loop coding to produce the number sequence
+**Note that the numbers 5 and 10 are missing**
+
+```{r}
+for(i in 1:20){
+  if(i == 5 | i == 10){
+    next
+  }
+  print(i)
+}
+```
+
