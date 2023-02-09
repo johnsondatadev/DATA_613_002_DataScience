@@ -359,8 +359,8 @@ display: none;
 
 <div id="section" class="section level2">
 <h2>1</h2>
-<p>R code (a map function) that iteratively to find the square of the
-sums across the vectors.</p>
+<p>R code <em>(a map function)</em> that iteratively finds the square of
+the sums across the vectors.</p>
 <pre class="r"><code>x &lt;- list(2, 4, 5, 9, 1)
 y &lt;- list(8, 7, 2, 8, 3)
 z &lt;- list(1, 8, 5, 4, 2)
@@ -370,10 +370,6 @@ pmap_dbl(list(x,y,z), function(first, second, third) (first + second + third)^2)
 </div>
 <div id="section-1" class="section level2">
 <h2>2</h2>
-<p>R code that will output a statement that is descriptive for all rows
-of the data table. The first row is given below. Your code should
-produce the other specific statements.
-<code>John who is Male, has a salary that is 65000 dollars per year.</code></p>
 <pre class="r"><code>tribble( ~Student,  ~Gender,    ~Salary,
          &quot;John&quot;,   &quot;Male&quot;,       65000,
          &quot;Alice&quot;,  &quot;Female&quot;,    73000,
@@ -391,26 +387,30 @@ table</code></pre>
 ## 3 Juan    Male    66000
 ## 4 Beth    Female  71500
 ## 5 Denise  Female  82000</code></pre>
+<p>R code that will output a statement that is descriptive for all rows
+of the data table. The first row is given below. Your code should
+produce the other specific statements. For example, <strong>John who is
+Male, has a salary that is 65000 dollars per year.</strong></p>
 <pre class="r"><code>table %&gt;% 
-  pmap_chr(~ str_glue(&quot;{..1} is {..2}, has a salary that is {..3} dollars per year.&quot;))</code></pre>
-<pre><code>## [1] &quot;John is Male, has a salary that is 65000 dollars per year.&quot;    
-## [2] &quot;Alice is Female, has a salary that is 73000 dollars per year.&quot; 
-## [3] &quot;Juan is Male, has a salary that is 66000 dollars per year.&quot;    
-## [4] &quot;Beth is Female, has a salary that is 71500 dollars per year.&quot;  
-## [5] &quot;Denise is Female, has a salary that is 82000 dollars per year.&quot;</code></pre>
+  pmap_chr(~ str_glue(&quot;{..1} who is {..2}, has a salary that is {..3} dollars per year.&quot;))</code></pre>
+<pre><code>## [1] &quot;John who is Male, has a salary that is 65000 dollars per year.&quot;    
+## [2] &quot;Alice who is Female, has a salary that is 73000 dollars per year.&quot; 
+## [3] &quot;Juan who is Male, has a salary that is 66000 dollars per year.&quot;    
+## [4] &quot;Beth who is Female, has a salary that is 71500 dollars per year.&quot;  
+## [5] &quot;Denise who is Female, has a salary that is 82000 dollars per year.&quot;</code></pre>
 </div>
 <div id="section-2" class="section level2">
 <h2>3</h2>
 <p>A 5 by 5 matrix that whose matrix elements are sums of the
 corresponding columns and rows.</p>
-<pre class="r"><code>myMatrix &lt;- matrix(nrow = 5, ncol = 5)
+<pre class="r"><code>my_matrix &lt;- matrix(nrow = 5, ncol = 5)
 
-for(i in 1:nrow(myMatrix)){
-  for(j in 1:ncol(myMatrix)){
-    myMatrix[i, j] = i + j
+for(i in 1:nrow(my_matrix)){
+  for(j in 1:ncol(my_matrix)){
+    my_matrix[i, j] = i + j
   }
 }
-myMatrix</code></pre>
+my_matrix</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    2    3    4    5    6
 ## [2,]    3    4    5    6    7

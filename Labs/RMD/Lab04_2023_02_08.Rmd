@@ -13,7 +13,7 @@ library(tidyverse)
 
 ## 1
 
-R code (a map function) that iteratively to find the square of the sums across the vectors.
+R code _(a map function)_ that iteratively finds the square of the sums across the vectors.
 
 ```{r}
 x <- list(2, 4, 5, 9, 1)
@@ -25,8 +25,6 @@ pmap_dbl(list(x,y,z), function(first, second, third) (first + second + third)^2)
 
 ## 2
 
-R code that will output a statement that is descriptive for all rows of the data table. The first row is given below.  Your code should produce the other specific statements. `John who is Male, has a salary that is 65000 dollars per year.`
-
 ```{r}
 tribble( ~Student,  ~Gender,    ~Salary,
          "John",   "Male",       65000,
@@ -37,9 +35,13 @@ tribble( ~Student,  ~Gender,    ~Salary,
 ) -> table
 
 table
+```
 
+R code that will output a statement that is descriptive for all rows of the data table. The first row is given below.  Your code should produce the other specific statements. For example, **John who is Male, has a salary that is 65000 dollars per year.**
+
+```{r}
 table %>% 
-  pmap_chr(~ str_glue("{..1} is {..2}, has a salary that is {..3} dollars per year."))
+  pmap_chr(~ str_glue("{..1} who is {..2}, has a salary that is {..3} dollars per year."))
 ```
 
 ## 3
@@ -47,14 +49,14 @@ table %>%
 A 5 by 5 matrix that whose matrix elements are sums of the corresponding columns and rows.
 
 ```{r}
-myMatrix <- matrix(nrow = 5, ncol = 5)
+my_matrix <- matrix(nrow = 5, ncol = 5)
 
-for(i in 1:nrow(myMatrix)){
-  for(j in 1:ncol(myMatrix)){
-    myMatrix[i, j] = i + j
+for(i in 1:nrow(my_matrix)){
+  for(j in 1:ncol(my_matrix)){
+    my_matrix[i, j] = i + j
   }
 }
-myMatrix
+my_matrix
 ```
 
 

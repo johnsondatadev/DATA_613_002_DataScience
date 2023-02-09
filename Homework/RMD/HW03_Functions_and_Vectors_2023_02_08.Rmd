@@ -57,7 +57,7 @@ R coding to confirm that "`pear`" is a character element in the list.
 
 ```{r}
 myList <-  list(TRUE, 12.35, "pear", 48, c = 3:8, list(23, "team"))
-myList 
+# myList 
 
 is.character(myList[[3]])
 ```
