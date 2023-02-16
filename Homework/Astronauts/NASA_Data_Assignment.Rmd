@@ -1,0 +1,175 @@
+---
+title: "Astronauts"
+author: "Johnson ODEJIDE"
+date: "2023-02-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## 1
+
+Use and show r code to import the Astronauts csv file.
+
+```{r}
+astronauts <- read_csv("Astronauts.csv", show_col_types = F)
+```
+
+## 2 
+
+Use and show r code to determine the number of Astronauts who are in the data table and the number of descriptive column variables.
+
+
+```{r}
+dim(astronauts)
+```
+There are **357** Astronauts and **19** descriptive column variables
+
+## 3
+
+Use and show r code to produce the number and the names of only the female Astronauts.  
+
+
+```{r}
+female_astronauts <- astronauts %>% 
+  filter(Gender == "Female")
+
+female_astronauts
+nrow(female_astronauts) ## There are 50 Female Astronauts
+```
+There are **50 Female Astronauts**
+
+## 4
+
+Use and show R coding to produce a table that shows the military rank and the military branch of each Female Astronaut.
+
+```{r}
+female_astronauts %>% 
+  select(Name, Gender, `Military Rank`, `Military Branch`)
+```
+
+## 5
+
+Some of the Astronauts in the data table are listed as Active and others are not. Use and show r code to determine how many Female Astronauts were currently active when this data set was constructed.
+
+```{r}
+female_astronauts %>% 
+  filter(Status == "Active") %>% 
+  count()
+```
+There are **13 Active Female Astronauts**
+
+## 6
+
+Use and show ggplot coding to produce a bar graph that compares space walks for Male and Female Astronauts.
+
+```{r}
+astronauts %>% 
+  ggplot(aes(x = Gender, y = `Space Walks`)) +
+  geom_bar(stat="identity", aes(fill = Gender)) +
+  theme_bw() +
+  ggtitle("Space Walks for Astronauts by Gender")
+```
+
+## 7
+
+Use and show r code to produce the table below that lists all Female Astronauts who have registered one or more Space Walks.
+
+```{r}
+female_astronauts %>% 
+  filter(`Space Walks` >= 1 ) %>% 
+  group_by(Name, Gender, `Space Walks`) %>% 
+  summarise(n = n())
+```
+
+
+## 8
+
+Use and show ggplot coding to produce a box plot in order to investigate outliers and the overall distribution for SpaceWalks for males and female astronauts combined. Does the boxplot indicate that there are outliers? Using the boxplot, estimate the IQR for the data.
+
+
+```{r}
+astronauts %>% 
+  ggplot(aes(x = `Space Walks`)) +
+  geom_boxplot() +
+  theme_bw() +
+  ggtitle("Space Walk for Male and Female Astronauts combined") +
+  scale_x_continuous(breaks = seq(0, 15, by = 1)) 
+
+IQR(astronauts$`Space Walks`)
+```
+**Yes**, the box plot indicates that there are outliers.
+
+Looking at the box plot, the IQR is **2**, that is the upper quartile (Q3) - lower quartile (Q1) = **2** - **0** = **2** 
+
+## 9
+
+Use and show ggplot coding to produce side by side box plots in order to investigate outliers and the overall distributions for Space Walks for males and female astronauts separately.  
+
+```{r}
+astronauts %>% 
+  ggplot(aes(x = `Space Walks`, color = Gender)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+Both Male and Female distributions have outliers. The male distribution shows more spread than the female and one could conclude that the Female distribution is skewed.
+
+## 10 
+
+The histogram displayed below shows that the Space Walks data is generally skewed right for all Astronauts (males and females). Use and show R code that will produce the histogram displayed.
+
+```{r}
+astronauts %>% 
+  ggplot() +
+  geom_histogram(aes(x = `Space Walks`), binwidth = 1, fill = "red")
+```
+
+
+## 11
+
+Use and show R coding to calculate the average(mean) of Space Walks for Male and Female Astronauts separately.
+
+```{r}
+astronauts %>% 
+  group_by(Gender) %>% 
+  summarise(Average = mean(`Space Walks`))
+```
+
+## 12
+
+Does a linear relationship exist between Space Flights and Space Walks ? Investigate by using and showing ggplot coding to produce a scatter plot.  Comment on your findings based on the configuration of the scatter plot data points.
+
+```{r}
+astronauts %>% 
+  ggplot() +
+  geom_point(aes(x = `Space Flights`, y = `Space Walks`))
+
+## There is no linear relationship between Space flights and Space Walks
+```
+**There is no linear relationship between Space flights and Space Walks because there is no observed pattern of increasing or decreasing trends.**
+
+## 13
+
+Mae C. Jemison was the first African American female Astronaut. Use and show R code that will output her Undergraduate Major, Graduate Major, and Alma Mater.
+
+```{r}
+female_astronauts %>% 
+  filter(Name == 'Mae C. Jemison') %>% 
+  select(Name, `Undergraduate Major`, `Graduate Major`, `Alma Mater`)
+```
+
+
+## 14
+
+Use and show R code to determine how many female Astronauts were members of the US Air Force or retired from the US Air Force at the time that the data set was generated.
+
+```{r}
+female_astronauts %>% 
+  filter(`Military Branch` == "US Air Force (Retired)" | `Military Branch` == "US Air Force") %>% 
+  count()
+```
+There are **5** female Astronauts who were members of the US Air Force or retired from the US Air Force at the time that the data set was generated.

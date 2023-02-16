@@ -1,0 +1,149 @@
+---
+title: "Homework 4"
+author: "Johnson ODEJIDE"
+date: "2023-02-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+## 1
+
+Use the R function nrow to confirm that the iris data frame has 150 rows. Then use and show R code that features a map function to confirm that the iris data frame has 150 rows.
+
+```{r}
+nrow(iris)
+
+map(iris, length)
+```
+
+## 2
+
+Use and show R code that features a nested loop that will produce the  5 by 3 matrix shown below
+
+```{r}
+my_matrix <- matrix(nrow = 3, ncol = 5)
+
+for(i in nrow(my_matrix):1){
+  for(j in ncol(my_matrix):1){
+    my_matrix[i, j] = (2 * j)-(i + j)
+  }
+}
+  
+my_matrix
+
+```
+
+## 3
+
+Use and show R code that will produce a tibble that features 10 randomly generated values that are normally distributed, with means of -10, 0, 10 and 100 respectfully.  Run your code again, producing a second tibble, that confirms random values, hence the second table will not have the same values.
+
+```{r}
+rand_num1 <- tibble(
+  a = rnorm(10, -10),
+  b = rnorm(10, 0),
+  c = rnorm(10, 10),
+  d = rnorm(10, 100)
+)
+rand_num1
+
+rand_num2 <- tibble(
+  a = rnorm(10, -10),
+  b = rnorm(10, 0),
+  c = rnorm(10, 10),
+  d = rnorm(10, 100)
+)
+rand_num2
+
+```
+**The two tables have different random values**
+
+## 4
+
+` X <- list(12, 14, 15, 18, 19, 22,10,18,18) `
+
+` Mean <- list(16, 16, 16, 16, 16,16,16,16,16) `
+
+` sd <- list(2, 2, 2, 2, 2,2,2,2,2) `
+
+### b
+
+In statistics, a z score indicates the standard deviation distance between the mean and a specific value of the data set. What formula is used to find a z score? Use and show R coding that features a map function to iteratively find z scores across the lists given above.
+
+**The formula for z score is (X - Mean) / sd**
+
+```{r}
+X <- list(12, 14, 15, 18, 19, 22,10,18,18)
+Mean <- list(16, 16, 16, 16, 16,16,16,16,16)
+sd <- list(2, 2, 2, 2, 2,2,2,2,2)
+
+# zscore = (x - Mean) / sd
+
+output2 <- vector("double") 
+for (i in seq_along(X)) {
+  output2[[i]] <- (X[[i]] - Mean[[i]]) / sd[[i]]
+}
+output2
+
+```
+
+
+### c
+
+The test statistic for a population mean is given by the formula `((X - mean)/(s/sqrt(n))` Use and show R coding that features a map function to iteratively find test statistics for population means across the lists given above.
+
+```{r}
+output2 <- vector("double")
+for (i in seq_along(X)) {
+  output2[[i]] <- (X[[i]] - Mean[[i]]) / (sd[[i]] / sqrt(i))
+}
+output2
+```
+
+## 5
+
+`V = c(10,15,17,22,32,38,42)`
+
+### a
+
+Another purr package function is the keep( ) function. Research, explore, and use the keep( ) function to extract all number from the vector V given above that are less than 20
+
+
+```{r}
+V = c(10,15,17,22,32,38,42)
+
+V %>% 
+  keep(.<20)
+
+```
+
+
+### b
+
+Another purr package function is the discard( ) function. Research, explore, and use the discard( ) function to eliminate all numbers from the vector V given above that are less than 20
+
+```{r}
+V %>% 
+  discard(.<20)
+```
+
+
+## 6
+
+Another purr package function is the **safely( )** function. Research, explore, and apply the 
+ safely( ) function  to the given vector below as illustrated.
+  `U = list(10,15,"mary",22,32,"james",42)`
+  
+  `map(U, safely(~ .x + 15))`
+  
+In four or five sentences, explain the specific output for this problem and how the definition and the application of the safely( ) function is used.
+
+```{r}
+U = list(10,15,"mary",22,32,"james",42)
+map(U, safely(~ .x + 15))
+```
+**Safely()** is a function used with map that allows an execution of a program without having to terminate. It rather returns a list of two element. An element `$result` showing the actual value of the result as well an element `$error` with the value of **NULL** is returned if the operation is successful. However, if the operation fails, `$result` is returned as **NULL** and the `$error` displays the actual error encountered during the course of the operation.
