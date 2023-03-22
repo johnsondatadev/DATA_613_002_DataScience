@@ -1,0 +1,187 @@
+---
+title: "Miderm Exam Spring 2023"
+author: "Johnson ODEJIDE"
+date: "2023-03-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F)
+
+options(scipen = 4)
+
+library(tidyverse)
+```
+
+## 1)
+
+Using r coding demonstrated in class, Write a function that will decrease any positive number by its square root. Test your function by using the value 100.
+
+```{r}
+square_root <- function(number){
+  result <- number ** 2
+  
+  print(paste("The square root of ", number, " is ", result))
+}
+
+square_root(100)
+```
+
+
+## 2) 
+
+Using r coding demonstrated in class, Write a function that will calculate the volume and the surface area of cylinder.  Test the accuracy of your function by using a cylinder of radius 10 and a height of 4.5. (Your answers should be 1413.7167 and 911.0619)
+
+```{r}
+cylinder <- function(radius, height){
+  volume <- pi * (radius ^ 2) * height
+  
+  surf_area <- 2 * pi * radius * (height + radius)
+  
+  print(paste("The volume of a cylinder with radius ", radius, " and height ", height, " is ", volume))
+  
+  print(paste("The surface area of a cylinder with radius ", radius, " and height ", height, " is ", surf_area))
+}
+
+cylinder(10, 4.5)
+```
+
+## 3
+
+Using the if-else coding structure demonstrated in class, write a function that will determine if a number is divisible by 9. If your number is  divisible by 9, the function generates the following statement: this number is divisible by 9. If the function is not divisible by 9, the function produces a statement that reads: this number is not divisible by 9. Test your function by using the numbers 153 and 2009.
+
+```{r}
+divisible_by_nine <- function(number){
+  if(number %% 9 == 0){
+    print(paste(number, " is divisible by 9"))
+  }else{
+    print(paste(number, " is not divisible by 9"))
+  }
+}
+
+divisible_by_nine(153)
+
+divisible_by_nine(2009)
+```
+
+## 4
+
+Using r coding methods demonstrated in class, write a function that will produce the difference between the cubes and the squares of the first 10 positive integers. Your output should be given in reverse order. The  following number sequence should be produced: 900 648 448 294 180 100  48  18 4 0
+
+```{r}
+cube_square_diff <- function(){
+  num <- c(10:1)
+  
+  for(i in num){
+    cube <- i ^ 3
+    square <- i ^ 2
+    print (paste((cube - square), sep = " "))
+  }
+}
+
+cube_square_diff()
+```
+
+
+## 5
+
+```{r}
+U <- c("Maine" , "Texas", "Delaware", "Oregon", "Utah", "Vermont", "Ohio")
+```
+
+**a)**  
+
+Is U an atomic vector or a list ?
+
+```{r}
+typeof(U)
+```
+U is an atomic vector
+
+**b)**  
+
+Use and show R code that will extract the elements  "Maine" and "Vermont".
+
+```{r}
+U[c(1, 6)]
+```
+
+
+**c)**  
+
+Use and show R code that will extract all elements except "Texas".
+
+```{r}
+U[-2]
+```
+
+
+**d)**  
+
+Use and show R code that will produce the length of U.
+
+```{r}
+length(U)
+```
+
+## 7
+
+Copy paste and run the tribble given below.
+
+```{r}
+tribble( ~John,    ~Raymond,    ~Martha,    ~Alice,   ~Juan,
+            86,         77,         81,         88,     90,
+            79,         78,         85,         81,     78,
+            76,         75,         88,         94,     81,
+            84,         90,         71,         84,     89,
+            100,        80,         93,         85,     84,
+            90,         73,         70,         88,     93
+) -> TestScores
+TestScores
+```
+
+**a)**
+
+Use and show R code (a map function) to find the median for each column.
+
+```{r}
+
+```
+
+**b)**
+
+Use and show R code (a map function) to find the cube root of each column element.
+
+```{r}
+
+```
+
+**c)**
+
+Use and show R code (a map function) to convert each column value to 0.
+
+```{r}
+
+```
+
+## 8
+
+Use and show R code, as demonstrated in class to produce the following matrix
+
+
+## 9
+
+Using the midwest data table, produce and show R code that will produce 20 observational rows of the table given below that only shows the first five observational rows. Use tidyverse/dplyr commands. Note that the state abbreviation WI has been changed to Wisconsin and Wisconsin is the only state listed.
+
+```{r}
+
+```
+
+## 10
+
+Now show and use data.table coding to produce the same output that you created for number 9.
+
+```{r}
+
+```
+
