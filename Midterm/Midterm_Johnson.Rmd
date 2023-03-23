@@ -145,7 +145,7 @@ TestScores
 Use and show R code (a map function) to find the median for each column.
 
 ```{r}
-
+map_dbl(TestScores, mean)
 ```
 
 **b)**
@@ -153,7 +153,8 @@ Use and show R code (a map function) to find the median for each column.
 Use and show R code (a map function) to find the cube root of each column element.
 
 ```{r}
-
+TestScores %>% 
+  map(~. ^ (1/3))
 ```
 
 **c)**
@@ -161,13 +162,24 @@ Use and show R code (a map function) to find the cube root of each column elemen
 Use and show R code (a map function) to convert each column value to 0.
 
 ```{r}
-
+TestScores %>% 
+  map(~. * 0)
 ```
 
 ## 8
 
 Use and show R code, as demonstrated in class to produce the following matrix
 
+```{r}
+myMatrix <- matrix(nrow = 3, ncol = 4)
+
+for(i in 1:nrow(myMatrix)){
+  for(j in 1:ncol(myMatrix)){
+    myMatrix[i, j] = -1 * (i + j) ^ 2
+  }
+}
+myMatrix
+```
 
 ## 9
 
@@ -175,6 +187,12 @@ Using the midwest data table, produce and show R code that will produce 20 obser
 
 ```{r}
 
+midwest %>% 
+  filter(state == "WI")  %>% 
+  select(state, county, area, percollege) %>% 
+  mutate(state = recode(state, "WI" = "Wisconsin"),
+         percollege = round(percollege, digits = 1)) %>% 
+  head(20)
 ```
 
 ## 10
@@ -182,6 +200,11 @@ Using the midwest data table, produce and show R code that will produce 20 obser
 Now show and use data.table coding to produce the same output that you created for number 9.
 
 ```{r}
-
+library(data.table)
+class(midwest)
+midwest["state" == "WI", .("state", "county", "area", "percollege")]
+as.data.table(midwest)
+midwest[state]
+# midwest[, list(state, county, area, percollege)]
 ```
 
