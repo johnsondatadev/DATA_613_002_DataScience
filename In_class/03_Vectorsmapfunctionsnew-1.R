@@ -4,6 +4,15 @@ library(tidyverse)
 library(dplyr)
 
 
+flights <- fread("https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv")
+
+midwest[[midwest[, "state"] == "WI"]]
+library(data.table)
+head(flights)
+as.data.table(flights)
+class(flights)
+
+flights[year == 2014, .(year, month, day)]
 
 # Review and Recall
 

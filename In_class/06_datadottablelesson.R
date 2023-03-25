@@ -89,7 +89,7 @@ flights1[order(origin, -dest)]
 
 
 # equivalent tidyverse way    
-flights2 %>%
+flights %>%
   select(year,month,day,carrier,origin,dest)%>%
   arrange(origin, desc(dest))
 
@@ -103,7 +103,7 @@ flights2 %>%
 # We will select the column variables origin and dest
 
 # data.table way
-flights1[, .(origin, dest)]
+flights[, .(origin, dest)]
 
 # Or
 

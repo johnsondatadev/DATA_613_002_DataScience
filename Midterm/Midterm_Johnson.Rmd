@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = F)
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = T)
 
 options(scipen = 4)
 
@@ -18,13 +18,13 @@ library(tidyverse)
 Using r coding demonstrated in class, Write a function that will decrease any positive number by its square root. Test your function by using the value 100.
 
 ```{r}
-square_root <- function(number){
-  result <- number ** 2
+decrease_by_sqrt <- function(number){
+  result <- number - sqrt(number)
   
-  print(paste("The square root of ", number, " is ", result))
+  print(paste("The result is ", result))
 }
 
-square_root(100)
+decrease_by_sqrt(100)
 ```
 
 
@@ -38,9 +38,9 @@ cylinder <- function(radius, height){
   
   surf_area <- 2 * pi * radius * (height + radius)
   
-  print(paste("The volume of a cylinder with radius ", radius, " and height ", height, " is ", volume))
+  print(paste("The volume of a cylinder with radius ", radius, " and height ", height, " is ", round(volume,4)))
   
-  print(paste("The surface area of a cylinder with radius ", radius, " and height ", height, " is ", surf_area))
+  print(paste("The surface area of a cylinder with radius ", radius, " and height ", height, " is ", round(surf_area, 4)))
 }
 
 cylinder(10, 4.5)
@@ -53,9 +53,9 @@ Using the if-else coding structure demonstrated in class, write a function that 
 ```{r}
 divisible_by_nine <- function(number){
   if(number %% 9 == 0){
-    print(paste(number, " is divisible by 9"))
+    print("This number is divisible by 9")
   }else{
-    print(paste(number, " is not divisible by 9"))
+    print("This number is not divisible by 9")
   }
 }
 
@@ -72,11 +72,14 @@ Using r coding methods demonstrated in class, write a function that will produce
 cube_square_diff <- function(){
   num <- c(10:1)
   
+  output = ""
+  
   for(i in num){
     cube <- i ^ 3
     square <- i ^ 2
-    print (paste((cube - square), sep = " "))
+    output = paste(output, (cube - square), " ")
   }
+  print(output)
 }
 
 cube_square_diff()
@@ -93,10 +96,7 @@ U <- c("Maine" , "Texas", "Delaware", "Oregon", "Utah", "Vermont", "Ohio")
 
 Is U an atomic vector or a list ?
 
-```{r}
-typeof(U)
-```
-U is an atomic vector
+*Yes*, U is an atomic vector beacause all the objects are character strings.
 
 **b)**  
 
@@ -123,6 +123,36 @@ Use and show R code that will produce the length of U.
 ```{r}
 length(U)
 ```
+## 6)  
+
+
+```{r}
+V = list("Chicago", k = list( 2, 6, 18, 24), FALSE, 13, 1.3,  y = 1:10)
+```
+
+**a)**  Is V an atomic vector or a list ?
+
+V is a list because it has different objects
+
+
+**b)**  Use and show R code that will extract the 5th element of V.
+
+```{r}
+V[[5]]
+```
+
+
+c)  If the vector V is a list, use and show R code to identify the type of each object in V.
+
+```{r}
+typeof(V[[1]])
+typeof(V[[2]])
+typeof(V[[3]])
+typeof(V[[4]])
+typeof(V[[5]])
+typeof(V[[6]])
+```
+
 
 ## 7
 
@@ -145,7 +175,7 @@ TestScores
 Use and show R code (a map function) to find the median for each column.
 
 ```{r}
-map_dbl(TestScores, mean)
+map_dbl(TestScores, median)
 ```
 
 **b)**
@@ -201,10 +231,21 @@ Now show and use data.table coding to produce the same output that you created f
 
 ```{r}
 library(data.table)
-class(midwest)
-midwest["state" == "WI", .("state", "county", "area", "percollege")]
-as.data.table(midwest)
-midwest[state]
-# midwest[, list(state, county, area, percollege)]
+
+ write.csv(midwest, 'midwest.csv') # Write the data to csv
+ midwest <- fread('midwest.csv') # Read the data using the fread function
+
+# Select state, county, area, percollege where state is WI
+midwest[state == "WI", .(state, county, area, percollege)] -> midwest1 
+
+# Change state name from WI to Wisconsin
+midwest1[, c("state") := "Wisconsin"] -> midwestn
+
+# round percollege to 1 decimal place.
+finmidwest <- midwestn[, c('percollege') := .(round(percollege, digits = 1))]
+head(as_tibble(finmidwest), 20)
+
+# Get the first 20 observational rows
+# head(finmidwest, 20)
 ```
 
