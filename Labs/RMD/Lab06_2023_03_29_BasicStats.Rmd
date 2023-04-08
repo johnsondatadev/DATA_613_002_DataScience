@@ -1,0 +1,154 @@
+---
+title: "Classwork Lab BasicStat"
+author: "Johnson ODEJIDE"
+date: "2023-03-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# 1
+In Hong Kong, human male height is approximately normally distributed with mean 171.5 cm and standard deviation 5.5 cm. (Use and show R code to produce answers for a – e)  You can use any method for f
+
+## a
+
+What proportion of the Hong Kong population is between 170 cm and 180 cm?
+
+```{r}
+pnorm(q = 180, mean = 171.5, sd = 5.5) - pnorm(q = 170, mean = 171.5, sd = 5.5)
+```
+
+## b
+
+What proportion of the Hong Kong population is less that 165 cm ?
+
+```{r}
+pnorm(q = 165, mean = 171.5, sd = 5.5)
+```
+
+## c
+
+What proportion of the Hong Kong population is greater than 175 ?
+
+```{r}
+1 - pnorm(q = 175, mean = 171.5, sd = 5.5)
+```
+
+## d
+
+The proportion .25 is less than what male height value ?
+
+```{r}
+qnorm(p = 0.25, mean = 171.5, sd = 5.5)
+```
+
+## e
+
+The proportion .85 is greater than what male height value ?
+
+```{r}
+qnorm(p = 0.85, mean = 171.5, sd = 5.5, lower.tail = FALSE)
+```
+
+## f
+
+The proportion of .68 is between what two male height values ?
+
+```{r}
+# qnorm(p = 0.84, mean = 171.5, sd = 5.5)
+# qnorm(p = 0.16, mean = 171.5, sd = 5.5)
+qnorm(p = c(0.16, 0.84), mean = 171.5, sd = 5.5)
+```
+
+
+# 5
+Use and show R code to determine the height of a t distribution curve for a t value of 1.5 with 3 degrees of freedom.
+
+```{r}
+dt(x = 1.5, df = 3)
+```
+
+# 6
+
+Use and show R code to determine the height of a t distribution curve for a t value of -2 with 2 degrees of freedom.
+
+```{r}
+dt(x = -2, df = 2)
+```
+
+# 7
+
+For a t distribution with 3 degrees of freedom, use and show R code that will find the proportion less than 2.5.
+
+```{r}
+pt(q = 2.5, df = 3)
+```
+
+# 8
+
+For a t distribution with 1 degree of freedom, use and show R code that will find the proportion that is greater than 1.75.
+
+```{r}
+1 - pt(q = 1.75, df = 1)
+```
+
+# 9
+
+For a t distribution with 2 degrees of freedom, use and show R code that will find the value immediately above a proportion of .355. 
+
+```{r}
+qt(p = 0.355, df = 2)
+```
+
+
+# 10
+
+An educator believes that new directed reading activities in the classroom will help elementary school pupils improve some aspects of their ability.  She arranges for a third -grade class of 23 students to take part in these activities for an eight-week period. A control classroom of 23 third graders follows the same curriculum without the activities. At the end of the eight weeks, all students are given a Degree of Reading Power (DRP) test, which measures the aspects of reading ability that the treatment is designed to improve. The sample data performance results are provided below;
+
+`Treatment Group`
+
+24,61,59,46,43,44,52,43,58,67,62,57,71,49,54,43,53,57,49,56,33,74,70
+
+`Control Group`
+
+42,33,46,37,43,41,10,42,55,19,17,55,26,54,60,28,62,20,53,48,37,85,42
+
+
+Design and execute a two sample t test.  
+
+```{r}
+c(24,61,59,46,43,44,52,43,58,67,62,57,71,49,54,43,53,57,49,56,33,74,70)->TreatmentGroup
+ TreatmentGroup
+ 
+ c(42,33,46,37,43,41,10,42,55,19,17,55,26,54,60,28,62,20,53,48,37,85,42)->ControlGroup
+ ControlGroup
+```
+
+
+**a)** 
+
+State the appropriate null and alternative hypotheses.
+
+H(O) : population mean for Treatment Group = population mean for Control Group  (Null hypothesis)
+
+H(A) : population mean for Treatment Group does not equal the population mean for Control Group
+	
+**b)** 
+
+Use and show R code to produce the p value and the confidence interval
+
+```{r}
+ t.test(TreatmentGroup, ControlGroup, mu = 0, var.equal=FALSE)
+```
+
+
+**c)** 
+
+Determine if you should reject or fail to reject the null hypothesis using 	the p value and the confidence interval.
+
+
+_We reject the null hypothesis because p-value (0.0105) is less than the 0.05 threshold. Population mean for Treatment Group is not equal to population mean for the Control Group. Additionally, zero (0) does not fall within the confidence interval 2.900188 and 20.578072. Hence, we reject the null hypothesis._
+
+
+

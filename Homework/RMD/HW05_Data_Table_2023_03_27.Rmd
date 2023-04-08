@@ -1,0 +1,142 @@
+---
+title: "Data.table Homework"
+author: "Johnson ODEJIDE"
+date: "2023-03-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F, include = T)
+
+library(tidyverse)
+library(dplyr)
+library(data.table)
+```
+```{r}
+write_csv(diamonds, 'diamonds.csv')
+diamonds <- fread('diamonds.csv')
+# diamonds[, .(carat, cut, price)]
+ndiamond <- diamonds[(price > 7000 & price < 10000 & cut == "Premium") , .(carat, cut, price)][order(-carat)]
+head(ndiamond, 20)
+# ndiamond[1:20, ]
+```
+
+## 1
+
+Use data.table coding to read in data from the College Data excel spreadsheet.  Assign the data imported to the variable CollegeData
+
+```{r}
+CollegeData <- fread("../../Homework/RMD/CollegeData.csv")
+```
+
+## 2
+
+Now use tidyverse coding to read in the College Data excel spread sheet. Assign the imported data to the variable CollegeDatatd
+
+```{r}
+CollegeDatatd <- read_csv("../../Homework/RMD/CollegeData.csv", show_col_types = F)
+```
+
+## 3
+
+Use R coding (of your choice) to determine how many rows and columns the CollegeData table has.
+
+```{r}
+dim(CollegeData)
+```
+CollegeData table has **7175** rows and **12** columns
+
+## 4
+
+Use data.table coding to select the variables INSTNM, SAT_AVG, and ADM_RATE.
+
+```{r}
+CollegeData[, .(INSTNM, SAT_AVG, ADM_RATE)]
+```
+
+## 5
+
+Use tidyverse/dplyr coding to select the variables INSTNM, SAT_AVG, and ADM_RATE.
+
+```{r}
+CollegeDatatd %>% 
+  select(INSTNM, SAT_AVG, ADM_RATE)
+```
+
+## 6
+
+Use data.table coding and the CollegeData data table to only show data for institutions that have admission rates that are less than 20 percent and SAT averages that are greater than 1500. Your data.table output should show five institutions that satisfy these conditions.
+
+```{r}
+CollegeData[ADM_RATE < 0.20 & SAT_AVG > 1500]
+```
+
+## 7
+
+Use data.table coding to show observational data (values for all 12 variables for American University. In particular, what is the admission rate and SAT average for American University.
+
+```{r}
+CollegeData[INSTNM == "American University", .(INSTNM, ADM_RATE, SAT_AVG)]
+```
+The admission rate for American University is 25.91% and the SAT Average is 1262
+
+## 8
+
+For the CollegeData data frame, Use and show data.table coding that will produce the first fifteen observational rows, the column variable AGE_ENTRY ordered from highest to lowest.  Also, your table only has the column variables INSTNM and AGE_ENTRY.  Assign your coding to the variable fifteen. 
+
+```{r}
+CollegeData$AGE_ENTRY <- as.numeric(CollegeData$AGE_ENTRY)
+fifteen <- CollegeData[, c("INSTNM", "AGE_ENTRY")][order(-AGE_ENTRY)]
+head(fifteen, 15)
+```
+
+**Without omitting AGE_ENTRY**
+
+```{r}
+CollegeData$AGE_ENTRY <- as.numeric(CollegeData$AGE_ENTRY)
+fifteen <- CollegeData[, c("INSTNM", "AGE_ENTRY")][order(-AGE_ENTRY)]
+head(fifteen, 15)
+```
+
+
+## 9
+
+Now using R coding of your choice, find the minimum, maximum, 1st and 3rd quartiles, the mean, and the median for the variable AGE_ENTRY. Make sure that AGE_ENTRY is defined as numeric.  Convert the variable to numeric if needed.
+
+```{r}
+CollegeDatatd %>% 
+  mutate(AGE_ENTRY = as.numeric(AGE_ENTRY)) %>% 
+  na.omit(AGE_ENTRY) %>% 
+  summarize(Minimum = min(AGE_ENTRY),
+            Maximum = max(AGE_ENTRY),
+            `First Quartile` = quantile(AGE_ENTRY, 0.25),
+            `Third Quartile` = quantile(AGE_ENTRY, 0.75),
+            Mean = mean(AGE_ENTRY),
+            Median = median(AGE_ENTRY))
+```
+
+
+## 10
+
+For the CollegeDatatd data frame, Use and show tidyverse/dplyr coding that will produce fifteen observational rows. Your table should only have data for the variables INSTNM and AGE_ENTRY.  Also, the column variable AGE_ENTRY  is to be ordered from highest to lowest. Your table result should be the same as for # 8.
+
+_Without omitting AGE_ENTRY_
+
+```{r}
+CollegeDatatd %>% 
+  mutate(AGE_ENTRY = as.numeric(AGE_ENTRY)) %>% 
+  select(INSTNM, AGE_ENTRY) %>% 
+  arrange(desc(AGE_ENTRY)) %>% 
+  head(15)
+```
+
+
+```{r}
+CollegeDatatd %>% 
+  mutate(AGE_ENTRY = as.numeric(AGE_ENTRY)) %>% 
+  na.omit(AGE_ENTRY) %>% 
+  select(INSTNM, AGE_ENTRY) %>% 
+  arrange(desc(AGE_ENTRY)) %>% 
+  head(15)
+```
+
